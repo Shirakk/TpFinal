@@ -1,7 +1,7 @@
 CLAVE = 12345
 DNI = 12345678
 CUENTA_DESTINO = 98765
-saldo_disponible_ars = 
+saldo_disponible_ars = 85000
 saldo_disponible_pen = 3564
 
 # la parte de menu de validacion de datos se podria poner en un def
@@ -40,10 +40,28 @@ def consultar_cuentas():
         print("Gracias por elegir InterBanca")
         exit()
 
-#def retiros():
-
-
-
+def retiros():
+    tipo_moneda = int(input("Ingrese el tipo de moneda, presione 1 para Soles y 2 para Pesos Argentinos "))
+    monto_retiro = int(input("Ingrese la cantidad de dinero que desea retirar: "))
+    if tipo_moneda == 1:
+        if monto_retiro <= saldo_disponible_pen:
+            clave_ingresada_retiros = int(input("Ingrese la clave de acceso para confirmar el retiro: "))
+        else:
+            print("Saldo insuficiente")
+            opcion_retiros = input("Ingrese 'a' para modificar el monto o 'b' para salir de la transacción")
+            if opcion_retiros == 'a':
+                monto_retiro = int(input("Ingrese la cantidad de dinero que desea retirar: "))
+            elif opcion_retiros == 'b':
+                menu()
+        while clave_ingresada_retiros != CLAVE:
+            clave_ingresada_retiros = int(input("Error: la clave ingresada no es la correcta. Por favor intente de nuevo: "))
+        impresion_voucher = input("Si desea imprimir el voucher ingrese 'y', si no lo desea ingrese cualquier otra letra: ")
+        if impresion_voucher == "y":
+            print("Imprimiendo voucher ... ")
+            menu()
+        else:
+            menu()
+                           
 def transferencias():
     os.system('cls')
     tipo_moneda = int(input("Ingrese el tipo de moneda, 1 para pesos argentinos 2 para pesos peruanos: "))
@@ -94,7 +112,6 @@ def menu():
     opcion_menu = int(input("Ingrese su opcion: "))
     if opcion_menu == 1:
         consultar_cuentas()
-
     elif opcion_menu == 2:
         retiros()
     elif opcion_menu == 3:
@@ -109,7 +126,7 @@ def menu():
 
 
 
-def menu_prints():
+#def menu_prints():
     
 menu()
 
