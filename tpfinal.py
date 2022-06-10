@@ -5,23 +5,34 @@
 
 CLAVE = 12345
 DNI = 12345678
-
+CUENTA_DESTINO = 98765
+# saldo_disponible_ars = 85000
+# saldo_disponible_pen = 3564 
 def menu():
     print(" 1. Consultas   2. Retiros   3. Transferencias   4. Salir")
     opcion_menu = int(input())
     if opcion_menu == 1:
         consultar_cuentas()
-    
+    if opcion_menu == 3:
+        retiros()
+    if opcion_menu == 4:
+        exit()
 
 def consultar_cuentas():
     print("a - Posición Global")
     print("b - Movimientos")
     opcion_cuentas = input()
     if opcion_cuentas == "a":
+        #tipo_moneda = int(input("Ingrese el tipo de moneda, presione 1 para Soles y 2 para Pesos Argentinos "))
         if tipo_moneda == 1:
-            print("Saldo displonible: 3.564 Soles")
-        elif tipo_moneda == "2":
+            print(f"Saldo displonible: 3.564 Soles")
+        elif tipo_moneda == 2:
             print("Saldo disponible: 85.000 Pesos")
+
+# def retiros():
+#     cuenta_destino = int(input("Por favor ingrese el numero de cuenta de destino: "))
+#     if cuenta_destino != CUENTA_DESTINO:
+#         print("Lo siento pero cuando buscabamos esa cuenta no la encontramos su dinero sera devuelto en 3 dias.")
 
 
 
