@@ -31,13 +31,13 @@ def consultar_cuentas():
     print("b - Movimientos")
     opcion_cuentas = input()
     if opcion_cuentas == "a":
-        tipo_moneda = int(input("Ingrese el tipo de moneda, presione 1 para Soles y 2 para Pesos Argentinos "))
-        if tipo_moneda == 1:
+        opcion_tipo_moneda = int(input("Ingrese el tipo de moneda, presione 1 para Pesos Argentinos y 2 para Soles "))
+        saldo_disponible = conversor_moneda(opcion_tipo_moneda)
+        if opcion_tipo_moneda == 1:
             #saldo_disponible_pen = 3564
-            print(f"Saldo displonible: {saldo_disponible_pen} Soles")
-        elif tipo_moneda == 2:
-            #saldo_disponible_ars = 85000
-            print(f"Saldo disponible: {saldo_disponible_ars} Pesos")
+            print(f"Saldo displonible: {saldo_disponible} Pesos Argentinos")
+        elif opcion_tipo_moneda == 2:
+            print(f"Saldo disponible: {saldo_disponible} Soles")
     volver = input("""Desea regresar al menu de inicio?
     Presione 'y' para volver y 'n' para salir: """)
     if volver == 'y':
@@ -50,15 +50,15 @@ def consultar_cuentas():
 
 def retiros():
     opcion_tipo_moneda = int(input("Ingrese el tipo de moneda, presione 1 para para Pesos Argentinos y 2 para Soles "))
-    tipo_moneda = conversor_moneda(opcion_tipo_moneda)
+    saldo_disponible = conversor_moneda(opcion_tipo_moneda)
     monto_retiro = int(input("Ingrese la cantidad de dinero que desea retirar: "))
     #if tipo_moneda == 1:
-    while monto_retiro > tipo_moneda:
+    while monto_retiro > saldo_disponible:
         print("Saldo Insuficiente")
         opcion_retiros = input("Ingrese 'a' para modificar el monto por unica vez o 'b' para salir de la transacción")
         if opcion_retiros == 'a':
             monto_retiro = int(input("Ingrese la cantidad de dinero que desea retirar: "))
-            if monto_retiro > tipo_moneda:
+            if monto_retiro > saldo_disponible:
                 print("Saldo insuficiente")
                 exit()
             else:
@@ -77,11 +77,12 @@ def retiros():
                            
 def transferencias():
     os.system('cls')
-    tipo_moneda = int(input("Ingrese el tipo de moneda, 1 para pesos argentinos 2 para pesos peruanos: "))
-    if tipo_moneda == 1:
-        cantidad_ingresada = float(input("Ingrese la cantidad de dinero a transferir: "))
-    if cantidad_ingresada > saldo_disponible_ars:
-        print("Lo siento pero esa cantidad no esta disponible en su cuenta de pesos argentinos.")    
+    opcion_tipo_moneda = int(input("Ingrese el tipo de moneda, 1 para pesos argentinos 2 para pesos peruanos: "))
+    saldo_disponible = conversor_moneda(opcion_tipo_moneda)
+    #if tipo_moneda == 1:
+    cantidad_ingresada = float(input("Ingrese la cantidad de dinero a transferir: "))
+    if cantidad_ingresada > saldo_disponible:
+        print("Lo siento pero esa cantidad no esta disponible en su cuenta.")    
     cuenta_destino = int(input("Por favor ingrese el numero de cuenta de destino: "))
     if cuenta_destino != CUENTA_DESTINO:
         print("Lo siento pero cuando buscabamos esa cuenta no la encontramos, su dinero sera devuelto en 3 dias.")
