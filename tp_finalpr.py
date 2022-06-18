@@ -44,15 +44,19 @@ def retiros():
     tipo_moneda = int(input("Ingrese el tipo de moneda, presione 1 para Soles y 2 para Pesos Argentinos "))
     monto_retiro = int(input("Ingrese la cantidad de dinero que desea retirar: "))
     if tipo_moneda == 1:
-        if monto_retiro <= saldo_disponible_pen:
-            clave_ingresada_retiros = int(input("Ingrese la clave de acceso para confirmar el retiro: "))
-        else:
-            print("Saldo insuficiente")
-            opcion_retiros = input("Ingrese 'a' para modificar el monto o 'b' para salir de la transacción")
+        while monto_retiro > saldo_disponible_pen:
+            print("Saldo Insuficiente")
+            opcion_retiros = input("Ingrese 'a' para modificar el monto por unica vez o 'b' para salir de la transacción")
             if opcion_retiros == 'a':
                 monto_retiro = int(input("Ingrese la cantidad de dinero que desea retirar: "))
+                if monto_retiro > saldo_disponible_pen:
+                    print("Saldo insuficiente")
+                    exit()
+                else:
+                    break
             elif opcion_retiros == 'b':
                 menu()
+        clave_ingresada_retiros = int(input("Ingrese la clave de acceso para confirmar el retiro: "))
         while clave_ingresada_retiros != CLAVE:
             clave_ingresada_retiros = int(input("Error: la clave ingresada no es la correcta. Por favor intente de nuevo: "))
         impresion_voucher = input("Si desea imprimir el voucher ingrese 'y', si no lo desea ingrese cualquier otra letra: ")
