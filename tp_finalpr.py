@@ -17,19 +17,27 @@ import random #<---- Este módulo implementa generadores de números pseudoaleat
 import os #<---- Este módulo provee una manera versátil de usar funcionalidades dependientes del sistema operativo
 import getpass #<---- Solicita al usuario una contraseña sin hacer eco (sin mostrarta en pantalla)
 
+def conversor_moneda(tipo_moneda):
+    if tipo_moneda == 1:
+        resultado_conversor = saldo_disponible_ars
+    elif tipo_moneda == 2:
+        resultado_conversor = saldo_disponible_pen
+    return resultado_conversor
+    
+
 def consultar_cuentas():
     os.system('cls')
     print("a - Posición Global")
     print("b - Movimientos")
     opcion_cuentas = input()
     if opcion_cuentas == "a":
-        tipo_moneda = int(input("Ingrese el tipo de moneda, presione 1 para Soles y 2 para Pesos Argentinos "))
-        if tipo_moneda == 1:
+        opcion_tipo_moneda = int(input("Ingrese el tipo de moneda, presione 1 para Pesos Argentinos y 2 para Soles "))
+        saldo_disponible = conversor_moneda(opcion_tipo_moneda)
+        if opcion_tipo_moneda == 1:
             #saldo_disponible_pen = 3564
-            print(f"Saldo displonible: {saldo_disponible_pen} Soles")
-        elif tipo_moneda == 2:
-            #saldo_disponible_ars = 85000
-            print(f"Saldo disponible: {saldo_disponible_ars} Pesos")
+            print(f"Saldo displonible: {saldo_disponible} Pesos Argentinos")
+        elif opcion_tipo_moneda == 2:
+            print(f"Saldo disponible: {saldo_disponible} Soles")
     volver = input("""Desea regresar al menu de inicio?
     Presione 'y' para volver y 'n' para salir: """)
     if volver == 'y':
@@ -38,18 +46,41 @@ def consultar_cuentas():
     elif volver == 'n':
         volver()
 
-#def retiros():
-
-
-
-
+def retiros():
+    opcion_tipo_moneda = int(input("Ingrese el tipo de moneda, presione 1 para para Pesos Argentinos y 2 para Soles "))
+    saldo_disponible = conversor_moneda(opcion_tipo_moneda)
+    monto_retiro = int(input("Ingrese la cantidad de dinero que desea retirar: "))
+    #if tipo_moneda == 1:
+    while monto_retiro > saldo_disponible:
+        print("Saldo Insuficiente")
+        opcion_retiros = input("Ingrese 'a' para modificar el monto por unica vez o 'b' para salir de la transacción")
+        if opcion_retiros == 'a':
+            monto_retiro = int(input("Ingrese la cantidad de dinero que desea retirar: "))
+            if monto_retiro > saldo_disponible:
+                print("Saldo insuficiente")
+                exit()
+            else:
+                break
+        elif opcion_retiros == 'b':
+            menu()
+    clave_ingresada_retiros = int(input("Ingrese la clave de acceso para confirmar el retiro: "))
+    while clave_ingresada_retiros != CLAVE:
+        clave_ingresada_retiros = int(input("Error: la clave ingresada no es la correcta. Por favor intente de nuevo: "))
+    impresion_voucher = input("Si desea imprimir el voucher ingrese 'y', si no lo desea ingrese cualquier otra letra: ")
+    if impresion_voucher == "y":
+        print("Imprimiendo voucher ... ")
+        menu()
+    else:
+        menu()
+                           
 def transferencias():
     os.system('cls')
-    tipo_moneda = int(input("Ingrese el tipo de moneda, 1 para pesos argentinos 2 para pesos peruanos: "))
-    if tipo_moneda == 1:
-        cantidad_ingresada = float(input("Ingrese la cantidad de dinero a transferir: "))
-    if cantidad_ingresada > saldo_disponible_ars:
-        print("Lo siento pero esa cantidad no esta disponible en su cuenta de pesos argentinos.")    
+    opcion_tipo_moneda = int(input("Ingrese el tipo de moneda, 1 para pesos argentinos 2 para pesos peruanos: "))
+    saldo_disponible = conversor_moneda(opcion_tipo_moneda)
+    #if tipo_moneda == 1:
+    cantidad_ingresada = float(input("Ingrese la cantidad de dinero a transferir: "))
+    if cantidad_ingresada > saldo_disponible:
+        print("Lo siento pero esa cantidad no esta disponible en su cuenta.")    
     cuenta_destino = int(input("Por favor ingrese el numero de cuenta de destino: "))
     if cuenta_destino != CUENTA_DESTINO:
         print("Lo siento pero cuando buscabamos esa cuenta no la encontramos, su dinero sera devuelto en 3 dias.")
@@ -105,7 +136,6 @@ def menu():
     opcion_menu = int(input("Ingrese su opcion: "))
     if opcion_menu == 1:
         consultar_cuentas()
-
     elif opcion_menu == 2:
         retiros()
     elif opcion_menu == 3:
@@ -116,5 +146,13 @@ def menu():
         print("Recuerde retirar su tarjeta.")
         exit()
 
-validacion()
 menu()
+
+
+
+#def menu_prints():
+    
+
+
+
+
