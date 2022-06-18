@@ -1,7 +1,7 @@
 CLAVE = 12345
 DNI = 12345678
 CUENTA_DESTINO = 98765
-saldo_disponible_ars = 
+saldo_disponible_ars = 85000
 saldo_disponible_pen = 3564
 
 # la parte de menu de validacion de datos se podria poner en un def
@@ -13,7 +13,7 @@ saldo_disponible_pen = 3564
 
 
 
-#import csv
+import random #<---- Este módulo implementa generadores de números pseudoaleatorios
 import os #<---- Este módulo provee una manera versátil de usar funcionalidades dependientes del sistema operativo
 import getpass #<---- Solicita al usuario una contraseña sin hacer eco (sin mostrarta en pantalla)
 
@@ -36,11 +36,10 @@ def consultar_cuentas():
         os.system('cls') #<--- Limpia la pantalla (SOLO OS DE WINDOWS, PARA LINUX O MAC CAMBIAR cls POR clear)
         menu()
     elif volver == 'n':
-        os.system('cls') #<--- Limpia la pantalla (SOLO OS DE WINDOWS, PARA LINUX O MAC CAMBIAR cls POR clear)
-        print("Gracias por elegir InterBanca")
-        exit()
+        volver()
 
 #def retiros():
+
 
 
 
@@ -55,31 +54,43 @@ def transferencias():
     if cuenta_destino != CUENTA_DESTINO:
         print("Lo siento pero cuando buscabamos esa cuenta no la encontramos, su dinero sera devuelto en 3 dias.")
         #saldo_disponible_ars = saldo_disponible_ars - cantidad_ingresada
+        volver()
+    else:
+        print("La transferencia se ha realizado con exitpo")
+        volver()
+
+def volver():
     volver = input("Desea regresar al menu de inicio? presione y para si o n para no: ")
     if volver == 'y':
         menu()
     elif volver == 'n':
+        os.system('cls') #<--- Limpia la pantalla (SOLO OS DE WINDOWS, PARA LINUX O MAC CAMBIAR cls POR clear)
+        print("Gracias por elegir InterBanca")
         exit()
 
 def validacion():
+    """
+    Pide una contraseña, y si no es correcta, la pide una hasta que
+    es correcto o el usuario lo haya intentado tres veces, entonces se finaliza en programa.
+    """
     os.system('cls') #<--- Limpia la pantalla (SOLO OS DE WINDOWS, PARA LINUX O MAC CAMBIAR cls POR clear)
     print("Por su seguridad su clave no sera mostrada en pantalla mientras la ingresa.")
-    clave_ingresada = 12345#int(getpass.getpass("Ingrese su clave: ")) #12345
+    clave_ingresada = int(getpass.getpass("Ingrese su clave: ")) #12345
     if clave_ingresada != CLAVE:
         contador_intentos = 0
         while contador_intentos<3 and clave_ingresada != CLAVE:
             os.system('cls') #<--- Limpia la pantalla (SOLO OS DE WINDOWS, PARA LINUX O MAC CAMBIAR cls POR clear)
             clave_ingresada = int(getpass.getpass("La clave ingresada es incorrecta, intente otra vez: "))
             os.system('cls')
-            contador_intentos = contador_intentos + 1
+            contador_intentos += 1
             if contador_intentos == 3 and clave_ingresada != CLAVE:
                 print("ATENCIÓN: Muchos intentos fallidos, tarjeta retenida.")
                 exit()
-    dni_ingresado = 12345678#int(input("Ingrese su numero de DNI: ")) #12345678
+    dni_ingresado = int(input("Ingrese su numero de DNI: ")) #12345678
     if dni_ingresado != DNI:
         print("Lo sinto pero el DNI que ha ingresado no esta en nuestra base de datos.")
         exit()
-    return validacion()
+    
 
 def menu():
     """
@@ -105,13 +116,5 @@ def menu():
         print("Recuerde retirar su tarjeta.")
         exit()
 
-
-
-
-
-def menu_prints():
-    
+validacion()
 menu()
-
-
-
