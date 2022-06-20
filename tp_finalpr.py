@@ -9,7 +9,7 @@ saldo_disponible_pen = 3564
 # problema solucionado
 #meter todos los prints y inputs en una sola funcion
 #pensar el codigo sin prints
-# hayq ue solucionar el problema de los saldos
+# hay que solucionar el problema de los saldos
 
 
 
@@ -38,15 +38,10 @@ def consultar_cuentas():
             print(f"Saldo displonible: {saldo_disponible} Pesos Argentinos")
         elif opcion_tipo_moneda == 2:
             print(f"Saldo disponible: {saldo_disponible} Soles")
-    volver = input("""Desea regresar al menu de inicio?
-    Presione 'y' para volver y 'n' para salir: """)
-    if volver == 'y':
-        os.system('cls') #<--- Limpia la pantalla (SOLO OS DE WINDOWS, PARA LINUX O MAC CAMBIAR cls POR clear)
-        menu()
-    elif volver == 'n':
-        volver()
+    volver()
 
 def retiros():
+    os.system('cls') #<--- Limpia la pantalla (SOLO OS DE WINDOWS, PARA LINUX O MAC CAMBIAR cls POR clear)
     opcion_tipo_moneda = int(input("Ingrese el tipo de moneda, presione 1 para para Pesos Argentinos y 2 para Soles "))
     saldo_disponible = conversor_moneda(opcion_tipo_moneda)
     monto_retiro = int(input("Ingrese la cantidad de dinero que desea retirar: "))
@@ -63,9 +58,9 @@ def retiros():
                 break
         elif opcion_retiros == 'b':
             menu()
-    clave_ingresada_retiros = int(input("Ingrese la clave de acceso para confirmar el retiro: "))
+    clave_ingresada_retiros = int(getpass.getpass("Ingrese la clave de acceso para confirmar el retiro: "))
     while clave_ingresada_retiros != CLAVE:
-        clave_ingresada_retiros = int(input("Error: la clave ingresada no es la correcta. Por favor intente de nuevo: "))
+        clave_ingresada_retiros = int(getpass.getpass("Error: la clave ingresada no es la correcta. Por favor intente de nuevo: "))
     impresion_voucher = input("Si desea imprimir el voucher ingrese 'y', si no lo desea ingrese cualquier otra letra: ")
     if impresion_voucher == "y":
         print("Imprimiendo voucher ... ")
@@ -74,7 +69,7 @@ def retiros():
         menu()
                            
 def transferencias():
-    os.system('cls')
+    os.system('cls') #<--- Limpia la pantalla (SOLO OS DE WINDOWS, PARA LINUX O MAC CAMBIAR cls POR clear)
     opcion_tipo_moneda = int(input("Ingrese el tipo de moneda, 1 para pesos argentinos 2 para pesos peruanos: "))
     saldo_disponible = conversor_moneda(opcion_tipo_moneda)
     #if tipo_moneda == 1:
@@ -145,6 +140,9 @@ def menu():
         print("Gracias por elegir InterBanca.")
         print("Recuerde retirar su tarjeta.")
         exit()
+    else:
+        os.system('cls')
+        menu()
 
 menu()
 
