@@ -18,6 +18,12 @@ import os #<---- Este módulo provee una manera versátil de usar funcionalidade
 import getpass #<---- Solicita al usuario una contraseña sin hacer eco (sin mostrarla en pantalla)
 
 def conversor_moneda(tipo_moneda):
+    """
+    Toma un número como argumento y devuelve un número
+    
+    :param tipo_moneda: 1 o 2
+    :retorno: El resultado de la función es el valor de la variable resultado_conversor.
+    """
     if tipo_moneda == 1:
         resultado_conversor = saldo_disponible_ars
     elif tipo_moneda == 2:
@@ -25,6 +31,10 @@ def conversor_moneda(tipo_moneda):
     return resultado_conversor
 
 def volver():
+    """
+    Si el usuario introduce "y" entonces se llama a la función menu(), si el usuario introduce "n" entonces el programa
+    sale del programa.
+    """
     volver = input("Desea regresar al menu de inicio? presione y para si o n para no: ")
     if volver == 'y':
         menu()
@@ -34,6 +44,10 @@ def volver():
         exit()
 
 def movimientos():
+    """
+    Imprime una lista de 10 transacciones aleatorias, cada una con un importe aleatorio entre 100 y 1000 y una
+    moneda aleatoria.
+    """
     os.system('cls') #<--- Limpia la pantalla (SOLO OS DE WINDOWS, PARA LINUX O MAC CAMBIAR cls POR clear)
     print("Ultimos movimientos:")
     movimientos = ['Tranferencia', 'Extracción']
@@ -43,6 +57,11 @@ def movimientos():
     volver()
 
 def consultar_cuentas():
+    """
+    Toma una entrada del usuario, y si la entrada es "a", pide otra entrada, y si esa
+    entrada es 1, imprime una cadena con el valor de la variable saldo_disponible, y si la entrada es
+    2, imprime una cadena con el valor de la variable saldo_disponible
+    """
     os.system('cls') #<--- Limpia la pantalla (SOLO OS DE WINDOWS, PARA LINUX O MAC CAMBIAR cls POR clear)
     print("a - Posición Global")
     print("b - Movimientos")
@@ -60,6 +79,9 @@ def consultar_cuentas():
     volver()
 
 def retiros():
+    """
+
+    """
     os.system('cls') #<--- Limpia la pantalla (SOLO OS DE WINDOWS, PARA LINUX O MAC CAMBIAR cls POR clear)
     opcion_tipo_moneda = int(input("Ingrese el tipo de moneda, presione 1 para para Pesos Argentinos y 2 para Soles "))
     saldo_disponible = conversor_moneda(opcion_tipo_moneda)
@@ -88,6 +110,12 @@ def retiros():
         menu()
                            
 def transferencias():
+    """
+    Pide al usuario el tipo de moneda, luego pide el importe a transferir, luego pide
+    el número de cuenta de destino. Si el número de cuenta de destino no es el que queremos, le dice al usuario
+    Si el número de cuenta de destino no es el que queremos, le dice al usuario que no se encontró la cuenta y que el dinero se devolverá en 3 días. Si el
+    Si el número de cuenta de destino es el que queremos, le dice al usuario que la transferencia fue exitosa
+    """
     os.system('cls') #<--- Limpia la pantalla (SOLO OS DE WINDOWS, PARA LINUX O MAC CAMBIAR cls POR clear)
     opcion_tipo_moneda = int(input("Ingrese el tipo de moneda, 1 para pesos argentinos 2 para pesos peruanos: "))
     saldo_disponible = conversor_moneda(opcion_tipo_moneda)
@@ -156,12 +184,3 @@ def menu():
         menu()
 
 menu()
-
-
-
-#def menu_prints():
-    
-
-
-
-
