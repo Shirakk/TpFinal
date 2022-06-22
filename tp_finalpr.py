@@ -122,15 +122,17 @@ def transferencias():
     #if tipo_moneda == 1:
     cantidad_ingresada = float(input("Ingrese la cantidad de dinero a transferir: "))
     if cantidad_ingresada > saldo_disponible:
-        print("Lo siento pero esa cantidad no esta disponible en su cuenta.")    
-    cuenta_destino = int(input("Por favor ingrese el numero de cuenta de destino: "))
-    if cuenta_destino != CUENTA_DESTINO:
-        print("Lo siento pero cuando buscabamos esa cuenta no la encontramos, su dinero sera devuelto en 3 dias.")
-        #saldo_disponible_ars = saldo_disponible_ars - cantidad_ingresada
+        print("Lo siento pero esa cantidad no esta disponible en su cuenta.")
         volver()
-    else:
-        print("La transferencia se ha realizado con exitpo")
-        volver()
+    else:    
+        cuenta_destino = int(input("Por favor ingrese el numero de cuenta de destino: "))
+        if cuenta_destino != CUENTA_DESTINO:
+            print("Lo siento pero cuando buscabamos esa cuenta no la encontramos, su dinero sera devuelto en 3 dias.")
+            #saldo_disponible_ars = saldo_disponible_ars - cantidad_ingresada
+            volver()
+        else:
+            print("La transferencia se ha realizado con exitpo")
+            volver()
 
 
 def validacion():
@@ -183,4 +185,5 @@ def menu():
         os.system('cls')
         menu()
 
+validacion()
 menu()
