@@ -15,7 +15,7 @@ saldo_disponible_pen = 3564
 
 import random #<---- Este módulo implementa generadores de números pseudoaleatorios
 import os #<---- Este módulo provee una manera versátil de usar funcionalidades dependientes del sistema operativo
-import getpass #<---- Solicita al usuario una contraseña sin hacer eco (sin mostrarta en pantalla)
+import getpass #<---- Solicita al usuario una contraseña sin hacer eco (sin mostrarla en pantalla)
 
 def conversor_moneda(tipo_moneda):
     if tipo_moneda == 1:
@@ -23,10 +23,27 @@ def conversor_moneda(tipo_moneda):
     elif tipo_moneda == 2:
         resultado_conversor = saldo_disponible_pen
     return resultado_conversor
-    
+
+def volver():
+    volver = input("Desea regresar al menu de inicio? presione y para si o n para no: ")
+    if volver == 'y':
+        menu()
+    elif volver == 'n':
+        os.system('cls') #<--- Limpia la pantalla (SOLO OS DE WINDOWS, PARA LINUX O MAC CAMBIAR cls POR clear)
+        print("Gracias por elegir InterBanca")
+        exit()
+
+def movimientos():
+    os.system('cls') #<--- Limpia la pantalla (SOLO OS DE WINDOWS, PARA LINUX O MAC CAMBIAR cls POR clear)
+    print("Ultimos movimientos:")
+    movimientos = ['Tranferencia', 'Extracción']
+    moneda = ['Pesos(ARS)', 'Soles(PEN)']
+    for i in range (10):
+        print(random.choice(movimientos),"monto:", random.randint(100,1000), random.choice(moneda))
+    volver()
 
 def consultar_cuentas():
-    os.system('cls')
+    os.system('cls') #<--- Limpia la pantalla (SOLO OS DE WINDOWS, PARA LINUX O MAC CAMBIAR cls POR clear)
     print("a - Posición Global")
     print("b - Movimientos")
     opcion_cuentas = input()
@@ -38,6 +55,8 @@ def consultar_cuentas():
             print(f"Saldo displonible: {saldo_disponible} Pesos Argentinos")
         elif opcion_tipo_moneda == 2:
             print(f"Saldo disponible: {saldo_disponible} Soles")
+    if opcion_cuentas == "b":
+        movimientos()
     volver()
 
 def retiros():
@@ -85,14 +104,6 @@ def transferencias():
         print("La transferencia se ha realizado con exitpo")
         volver()
 
-def volver():
-    volver = input("Desea regresar al menu de inicio? presione y para si o n para no: ")
-    if volver == 'y':
-        menu()
-    elif volver == 'n':
-        os.system('cls') #<--- Limpia la pantalla (SOLO OS DE WINDOWS, PARA LINUX O MAC CAMBIAR cls POR clear)
-        print("Gracias por elegir InterBanca")
-        exit()
 
 def validacion():
     """
