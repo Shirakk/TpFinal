@@ -4,15 +4,6 @@ CUENTA_DESTINO = 98765
 saldo_disponible_ars = 85000
 saldo_disponible_pen = 3564
 
-# la parte de menu de validacion de datos se podria poner en un def
-# hay que solucionar que las opciones se vuelvan a mostrar en pantalla cada vez que el usuario vuelva al menu.
-# problema solucionado
-#meter todos los prints y inputs en una sola funcion
-#pensar el codigo sin prints
-# hay que solucionar el problema de los saldos
-
-
-
 import random #<---- Este módulo implementa generadores de números pseudoaleatorios
 import os #<---- Este módulo provee una manera versátil de usar funcionalidades dependientes del sistema operativo
 import getpass #<---- Solicita al usuario una contraseña sin hacer eco (sin mostrarla en pantalla)
@@ -70,7 +61,6 @@ def consultar_cuentas():
         opcion_tipo_moneda = int(input("Ingrese el tipo de moneda, presione 1 para Pesos Argentinos y 2 para Soles "))
         saldo_disponible = conversor_moneda(opcion_tipo_moneda)
         if opcion_tipo_moneda == 1:
-            #saldo_disponible_pen = 3564
             print(f"Saldo displonible: {saldo_disponible} Pesos Argentinos")
         elif opcion_tipo_moneda == 2:
             print(f"Saldo disponible: {saldo_disponible} Soles")
@@ -86,7 +76,6 @@ def retiros():
     opcion_tipo_moneda = int(input("Ingrese el tipo de moneda, presione 1 para para Pesos Argentinos y 2 para Soles "))
     saldo_disponible = conversor_moneda(opcion_tipo_moneda)
     monto_retiro = int(input("Ingrese la cantidad de dinero que desea retirar: "))
-    #if tipo_moneda == 1:
     while monto_retiro > saldo_disponible:
         print("Saldo Insuficiente")
         opcion_retiros = input("Ingrese 'a' para modificar el monto por unica vez o 'b' para salir de la transacción")
@@ -122,7 +111,7 @@ def transferencias():
     #if tipo_moneda == 1:
     cantidad_ingresada = float(input("Ingrese la cantidad de dinero a transferir: "))
     if cantidad_ingresada > saldo_disponible:
-        print("Lo siento pero esa cantidad no esta disponible en su cuenta.")
+        print("Lo siento pero esa cantidad no esta disponible en su cuenta.")    
         volver()
     else:    
         cuenta_destino = int(input("Por favor ingrese el numero de cuenta de destino: "))
@@ -153,7 +142,7 @@ def validacion():
             if contador_intentos == 3 and clave_ingresada != CLAVE:
                 print("ATENCIÓN: Muchos intentos fallidos, tarjeta retenida.")
                 exit()
-    dni_ingresado = int(input("Ingrese su numero de DNI: ")) #12345678
+    dni_ingresado = int(input("Ingrese su numero de DNI: "))
     if dni_ingresado != DNI:
         print("Lo sinto pero el DNI que ha ingresado no esta en nuestra base de datos.")
         exit()
@@ -184,6 +173,5 @@ def menu():
     else:
         os.system('cls')
         menu()
-
 validacion()
 menu()
